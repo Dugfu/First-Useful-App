@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <title>Hello World!</title>
+   <script src="sitemap.js"></script>
+</head>
+<body>
+   <h1>Hello World!</h1>
+   <form onsubmit="launchSitemap();return false;">
+      <span>URL</span><input type="url" name="url" id="url" placeholder="http://example.com" required><br>
+      <span>Depth Max</span><input type="text" name="depth" id="depth" pattern="\d*" title="Numeric Only" placeholder="0"><br>
+      <span>Target Folder</span><input type="button" onclick="dialogFolder()" value="Choose Folder"/><br><input type="hidden" id="folder">
+      <input type="submit" value="d&eacute;marrer">
+   </form>
+   <div id="demo"></div>
+   <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+      require("./sitemap.js")
+   </script>
+</body>
+</html>
