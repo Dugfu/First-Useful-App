@@ -1,6 +1,47 @@
 const SitemapGenerator = require('sitemap-generator');
 const { dialog } = require('electron').remote
 const http = require('http')
+var geolocation = require('geolocation')
+
+geolocation.getCurrentPosition(function (err, position) {
+   if (err) throw err;
+   console.log(position)
+})
+
+var info={
+   timeOpened:new Date(),
+   timezone:(new Date()).getTimezoneOffset()/60,
+
+   pageon: window.location.pathname,
+   referrer: document.referrer,
+   previousSites: history.length,
+
+   browserName: navigator.appName,
+   browserEngine: navigator.product,
+   browserVersion1a: navigator.appVersion,
+   browserVersion1b: navigator.userAgent,
+   browserLanguage: navigator.language,
+   browserOnline: navigator.onLine,
+   browserPlatform: navigator.platform,
+   javaEnabled: navigator.javaEnabled(),
+   dataCookiesEnabled: navigator.cookieEnabled,
+   dataCookies1: document.cookie,
+   dataCookies2: decodeURIComponent(document.cookie.split(";")),
+   dataStorage: localStorage,
+
+   sizeScreenW: screen.width,
+   sizeScreenH: screen.height,
+   sizeDocW: document.width,
+   sizeDocH: document.height,
+   sizeInW: innerWidth,
+   sizeInH: innerHeight,
+   sizeAvailW: screen.availWidth,
+   sizeAvailH: screen.availHeight,
+   scrColorDepth: screen.colorDepth,
+   scrPixelDepth: screen.pixelDepth,
+};
+
+console.log(info);
 
 function launchSitemap(){
    let url = document.getElementById('url').value;
@@ -22,7 +63,7 @@ function launchSitemap(){
    }
    let demo = document.getElementById("demo");
    // demo.innerHTML = pMap.join(",");
-   console.log(pMap);
+   // console.log(pMap);
    let patt = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm;
    if(patt.exec(url) != null){
       // console.log(url);
