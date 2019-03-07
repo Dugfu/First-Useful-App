@@ -1,5 +1,7 @@
 # Ignore everything in node_modules
 node_modules/*
+sitemap.xml
+
 # But not the index of sitemap-generator
 !node_modules/sitemap-generator
 node_modules/sitemap-generator/*

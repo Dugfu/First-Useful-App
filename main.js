@@ -7,12 +7,14 @@ let mainWindow
 
 function createWindow () {
    // Create the browser window.
-   mainWindow = new BrowserWindow({minimizable: false})
+   mainWindow = new BrowserWindow({})
 
    // and load the index.html of the app.
    mainWindow.loadFile('./index.html')
-   mainWindow.maximize();
+   // mainWindow.maximize();
+   // mainWindow.setResizable(false);
    // mainWindow.setMenu(null);
+   
    mainWindow.setAutoHideMenuBar(true);
 
    // Open the DevTools.

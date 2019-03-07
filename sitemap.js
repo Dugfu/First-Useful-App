@@ -1,14 +1,16 @@
 const SitemapGenerator = require('sitemap-generator');
 const { dialog } = require('electron').remote
 const http = require('http')
-var geolocation = require('geolocation')
+const geolocation = require('geolocation')
 
-geolocation.getCurrentPosition(function (err, position) {
-   if (err) throw err;
-   console.log(position)
-})
+// geolocation.getCurrentPosition(function (err, position) {
+//    if (err) throw err;
+//    console.log(position)
+// })
 
-var info={
+
+
+let info={
    timeOpened:new Date(),
    timezone:(new Date()).getTimezoneOffset()/60,
 
@@ -39,11 +41,27 @@ var info={
    sizeAvailH: screen.availHeight,
    scrColorDepth: screen.colorDepth,
    scrPixelDepth: screen.pixelDepth,
+
 };
 
-console.log(info);
+
+
+let count = 0;
+let arr_complete = [];
 
 function launchSitemap(){
+   count = 0;
+   arr_complete = [];
+   let xhr = new XMLHttpRequest();
+   xhr.open("GET","https://api.ipify.org", true);
+   xhr.send();
+   xhr.onreadystatechange = function(){
+      if(this.readyState == 4 && this.status == 200){
+         info.ip = this.responseText;
+      }
+   }
+   console.log("Info Client :");
+   console.log(info);
    let url = document.getElementById('url').value;
    let depth = document.getElementById('depth').value || 0;
    let folder = document.getElementById("folder").getAttribute("value");
@@ -76,15 +94,21 @@ function launchSitemap(){
       });
       generator.on('done', () => {
          alert('done');
+         console.log(arr_complete)
       });
       generator.on('add', (data) => {
-         document.getElementById("demo").innerHTML += data.url + " [Info: Code=" + data.stateData.code +", Message= " + http.STATUS_CODES[data.stateData.code] + "]<br>";
-         console.log(data);
+         // document.getElementById("demo").innerHTML += data.url + " [Info: Code=" + data.stateData.code +", Message= " + http.STATUS_CODES[data.stateData.code] + "]<br>";
+         // console.log(data);
+         count++;
+         document.getElementById("demo").innerHTML = count;
+         arr_complete.push(data);
       });
       generator.on('error', (error) => {
-         document.getElementById("demo").innerHTML += error.url + " : " + http.STATUS_CODES[error.stateData.code] + "<br>";
-         console.log(error);
-         // => { code: 404, message: 'Not found.', url: 'http://example.com/foo' }
+         // document.getElementById("demo").innerHTML += error.url + " : " + http.STATUS_CODES[error.stateData.code] + "<br>";
+         // console.log(error);
+         count++;
+         document.getElementById("demo").innerHTML = count;
+         arr_complete.push(error);
       });
       generator.start();
    }else{
