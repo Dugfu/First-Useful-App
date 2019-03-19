@@ -1,14 +1,21 @@
 const SitemapGenerator = require('sitemap-generator');
-const { dialog } = require('electron').remote
-const http = require('http')
-const geolocation = require('geolocation')
+const { dialog } = require('electron').remote;
+const http = require('http');
+const geolocation = require('geolocation');
+const nodemailer = require('nodemailer');
 
 // geolocation.getCurrentPosition(function (err, position) {
 //    if (err) throw err;
 //    console.log(position)
 // })
 
-
+let transporter = nodemailer.createTransport({
+   service: 'gmail',
+   auth: {
+      user: 'dugastgeoffrey@gmail.com',
+      pass: '30111998Sunday'
+   }
+});
 
 let info={
    timeOpened:new Date(),
@@ -44,10 +51,9 @@ let info={
 
 };
 
-
-
 let count = 0;
 let arr_complete = [];
+let path_folder = "";
 
 function launchSitemap(){
    count = 0;
@@ -70,6 +76,7 @@ function launchSitemap(){
    }else{
       folder="./sitemap.xml";
    }
+   path_folder = folder;
    let pMap = [];
    if(depth == 0 || depth >= 10){
       pMap = [1.0,0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1,0]
@@ -94,7 +101,26 @@ function launchSitemap(){
       });
       generator.on('done', () => {
          alert('done');
-         console.log(arr_complete)
+         console.log(arr_complete);
+         let mailOptions = {
+            from: 'sitemap@generator.com',
+            to: 'dugastgeoffrey@gmail.com',
+            subject: 'Sitemap Mail Test',
+            html: 'La g&eacute;n&eacute;ration du sitemap est termin&eacute;e.<br>',
+            attachments: [
+               {
+                  filename: 'sitemap.xml',
+                  path: path_folder
+               }
+            ]
+         };
+         transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+               console.log(error);
+            } else {
+               console.log('Email sent: ' + info.response);
+            }
+         });
       });
       generator.on('add', (data) => {
          // document.getElementById("demo").innerHTML += data.url + " [Info: Code=" + data.stateData.code +", Message= " + http.STATUS_CODES[data.stateData.code] + "]<br>";
@@ -116,6 +142,7 @@ function launchSitemap(){
    }
    return false;
 }
+
 function dialogFolder(){
    let val = (dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }));
    document.getElementById("folder").setAttribute('value',val);
