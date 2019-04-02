@@ -2,22 +2,57 @@
 <html>
 <head>
    <meta charset="UTF-8">
-   <title>Hello World!</title>
-   <script src="sitemap.js"></script>
+   <title>Sitemap Generator</title>
+   <script src="public/js/bootstrap.min.js"></script>
+   <script src="public/js/sitemap.js"></script>
+   <link rel="stylesheet" href="public/css/bootstrap.min.css">
 </head>
 <body>
-   <h1>Hello World!</h1>
-   <form onsubmit="launchSitemap();return false;">
-      <span>URL</span><input type="url" name="url" id="url" placeholder="http://example.com" required><br>
-      <span>Depth Max</span><input type="text" name="depth" id="depth" pattern="\d*" title="Numeric Only" placeholder="0"><br>
-      <span>Target Folder</span><input type="button" onclick="dialogFolder()" value="Choose Folder"/><br><input type="hidden" id="folder">
-      <input type="submit" value="d&eacute;marrer">
-   </form>
-   <div id="demo" style="max-height:500px;overflow:auto;"></div>
+   <div class="container">
+      <h2>Sitemap Generator</h2>
+      <form onsubmit="launchSitemap();return false;" class="was-validated">
+         <div class="form-group">
+            <label for="url">URL:</label>
+            <input type="url" class="form-control" name="url" id="url" placeholder="http://example.com" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+         </div>
+         <div class="form-inline">
+            <label for="depth" class="mb-2 mr-sm-2">Depth:</label>
+            <input type="text" class="form-control mb-2 mr-sm-2" name="depth" id="depth" pattern="\d*" title="Numeric Only" placeholder="0">
+            <label for="fol" class="mb-2 mr-sm-2">Folder:</label>
+            <input type="button" class="btn btn-secondary mb-2 mr-sm-2" name="fol" onclick="dialogFolder()" value="Choose Folder"/><br><input type="hidden" id="folder"><p id="folder-p" class="text-muted"></p>
+         </div>
+         <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" name="email" value="dugastgeoffrey@gmail.com" id="email">
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+         </div>
+         <input type="submit" class="btn btn-primary" value="Go">
+      </form>
+   </div>
+   <hr/>
+   <div class="container-fluid">
+      <table class="table">
+         <thead class="thead-dark">
+            <tr id="thead-tr">
+               <th>ID</th>
+               <th>Url</th>
+               <th>Status</th>
+               <th>Parent</th>
+            </tr>
+         </thead>
+         <tbody id="tbody-arr">
+         </tbody>
+      </table>
+   </div>
+   <div id="demo"></div>
+   
    <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
-      require("./sitemap.js")
+   // You can also require other files to run in this process
+   require('./public/js/renderer.js')
+   require("./public/js/sitemap.js")
    </script>
 </body>
 </html>

@@ -1,0 +1,28 @@
+.top-btn{
+   max-width: 40px;
+   background-color: #e9ecef;
+   cursor: pointer;
+   border-radius: 0;
+}
+.top-btn:hover{
+   background-color: darkslategrey;
+}
+.top-btn svg{
+   transform: scale(2.5,2.5);
+}
+.top-btn svg path{
+   fill: #495057;
+}
+#folder-p{
+   cursor: pointer;
+}
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+#thead-tr th{
+   position: sticky;
+   top: 0px;
+}

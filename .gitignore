@@ -1,10 +1,27 @@
-# Ignore everything in node_modules
+# Ignore everything in the following folders
 node_modules/*
-sitemap.xml
-
+public/*
+installers/*
+release-builds/*
 # But not the index of sitemap-generator
 !node_modules/sitemap-generator
 node_modules/sitemap-generator/*
 !node_modules/sitemap-generator/src
 node_modules/sitemap-generator/src/*
 !node_modules/sitemap-generator/src/index.js
+
+# But not the bootstrap file we need
+!public/css/
+public/css/*
+!public/css/bootstrap.min.css
+!public/css/style.css
+!public/js/
+public/js/*
+!public/js/bootstrap.min.js
+!public/js/sitemap.js
+!public/js/renderer.js
+
+
+# Ignore the following files
+sitemap.xml
+.env

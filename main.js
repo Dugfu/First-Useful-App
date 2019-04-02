@@ -1,24 +1,23 @@
+require('dotenv').config();
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let mainWindow;
 
 function createWindow () {
    // Create the browser window.
-   mainWindow = new BrowserWindow({})
-
+   mainWindow = new BrowserWindow({});
    // and load the index.html of the app.
-   mainWindow.loadFile('./index.html')
+   mainWindow.loadFile('./index.html');
    // mainWindow.maximize();
    // mainWindow.setResizable(false);
-   // mainWindow.setMenu(null);
-   
-   mainWindow.setAutoHideMenuBar(true);
+   mainWindow.setMenu(null);
+   // mainWindow.setAutoHideMenuBar(true);
 
    // Open the DevTools.
-   // mainWindow.webContents.openDevTools()
+   mainWindow.webContents.openDevTools({detach:true});
 
    // Emitted when the window is closed.
    mainWindow.on('closed', function () {
@@ -28,7 +27,6 @@ function createWindow () {
       mainWindow = null
    })
 }
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.

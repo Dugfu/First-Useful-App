@@ -5,15 +5,24 @@
    "main": "main.js",
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "electron ."
+      "start": "electron .",
+      "dev": "nodemon --exec electron .",
+      "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=x64 --icon=assets/icons/win/favicon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Sitemap Generator\"",
+      "create-installer-win": "node installers/windows/createinstaller.js"
    },
    "author": "Geoffrey Dugast",
    "license": "ISC",
    "dependencies": {
+      "dotenv": "^7.0.0",
       "electron": "^4.0.7",
       "geolocation": "^0.2.0",
       "nodemailer": "^5.1.1",
       "npm": "^6.8.0",
       "sitemap-generator": "^8.3.3"
+   },
+   "devDependencies": {
+      "electron-packager": "^13.1.1",
+      "electron-winstaller": "^3.0.4",
+      "nodemon": "^1.18.10"
    }
 }
